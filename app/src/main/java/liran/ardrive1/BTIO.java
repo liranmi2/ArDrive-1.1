@@ -21,6 +21,8 @@ public class BTIO extends Activity {
 //    int readBufferPosition;
 //    //int counter;
 //    volatile boolean stopWorker;
+
+    private static BTIO instance = null;
     private BluetoothAdapter mBluetoothAdapter;
     private BluetoothSocket mmSocket;
     private BluetoothDevice mmDevice;
@@ -30,6 +32,16 @@ public class BTIO extends Activity {
     private int direction = 0;
     private int speed = 0;
 
+    protected BTIO(){} //only for instance
+
+    public BTIO getInstance()
+    {
+        if(instance == null)
+        {
+            instance = new BTIO();
+        }
+        return instance;
+    }
 
     public boolean findBT()
     {

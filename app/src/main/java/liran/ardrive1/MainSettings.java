@@ -10,7 +10,7 @@ public class MainSettings {
     /*
     settings options
      */
-
+    
     private MainSettings(){
 
     }

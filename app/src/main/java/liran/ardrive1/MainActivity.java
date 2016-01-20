@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         final SeekBar carSpeed = (SeekBar) findViewById(R.id.seekBar);
 
         carSpeed.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+         //the seek bar updating the BTIO
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 speedText.setText("" + progress);
