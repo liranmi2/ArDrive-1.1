@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="#ff969696">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Connect"
+        android:id="@+id/btnConnect"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="110dp"
+        android:clickable="true"
+        android:background="#ff4e4e4e"
+        android:textColor="#ffffff"
+        android:textSize="15sp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enter"
+        android:id="@+id/btnEnter"
+        android:layout_marginTop="59dp"
+        android:layout_below="@+id/btnConnect"
+        android:layout_alignLeft="@+id/btnConnect"
+        android:layout_alignStart="@+id/btnConnect"
+        android:clickable="false"
+        android:textSize="15sp"
+        android:textColor="#ffffff"
+        android:background="#ff4e4e4e" />
+
+</RelativeLayout>
