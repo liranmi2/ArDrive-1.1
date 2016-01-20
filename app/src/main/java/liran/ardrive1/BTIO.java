@@ -13,7 +13,9 @@ import java.util.UUID;
 
 /**
  * Created by Liran on 23/11/2015.
+ * changed by Liran on 20/01/2016
  */
+
 public class BTIO extends Activity {
 
 //    Thread workerThread;
@@ -35,7 +37,7 @@ public class BTIO extends Activity {
 
     protected BTIO(){} //only for instance
 
-    public BTIO getInstance()
+    public static BTIO getInstance()
     {
         if(instance == null)
         {
@@ -47,16 +49,15 @@ public class BTIO extends Activity {
     public boolean findBT()
     {
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        if(mBluetoothAdapter == null) {
-            // myLabel.setText("No bluetooth adapter available");
-        }
-
-        if(!mBluetoothAdapter.isEnabled()) {
+//        if(mBluetoothAdapter == null) {
+//            // myLabel.setText("No bluetooth adapter available");
+//        }
+        if (!mBluetoothAdapter.isEnabled()) {
             Intent enableBluetooth = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBluetooth, 0);
         }
 
-        Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();;
+        Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
         if(pairedDevices.size() > 0) {
             for(BluetoothDevice device : pairedDevices)
                 if (device.getName().equals("LIRANVOSTRO")) {

@@ -10,9 +10,6 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-
-    BTIO btio = new BTIO();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,7 +19,8 @@ public class MainActivity extends AppCompatActivity {
         rightArr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                btio.setDirection(3);
+
+                BTIO.getInstance().setDirection(3);
             }
         });
 
@@ -30,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         leftArr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                btio.setDirection(4);
+                BTIO.getInstance().setDirection(4);
             }
         });
 
@@ -43,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 speedText.setText("" + progress);
-                btio.setSpeed(progress + 150);
+                BTIO.getInstance().setSpeed(progress + 150);
             }
 
             @Override

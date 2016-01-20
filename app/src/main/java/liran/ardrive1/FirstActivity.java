@@ -8,9 +8,6 @@ import android.view.View;
 import android.widget.Button;
 public class FirstActivity extends AppCompatActivity {
 
-    BTIO btio = new BTIO();
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,8 +21,8 @@ public class FirstActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    btio.findBT();
-                    btio.openBT();
+                    BTIO.getInstance().findBT();
+                    BTIO.getInstance().openBT();
                 }
                 catch (Exception ex) {
                     Log.e("Ardrive1","exception",ex);
