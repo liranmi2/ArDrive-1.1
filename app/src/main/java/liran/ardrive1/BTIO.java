@@ -23,6 +23,7 @@ public class BTIO extends Activity {
 //    volatile boolean stopWorker;
 
     private static BTIO instance = null;
+
     private BluetoothAdapter mBluetoothAdapter;
     private BluetoothSocket mmSocket;
     private BluetoothDevice mmDevice;
