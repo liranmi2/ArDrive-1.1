@@ -29,27 +29,14 @@ public class BTIO extends Activity {
     // I created this class in order for it to work with one instance,
     // so I will be able to connect in the first screen, and make changes in the second screen
 
-    private static BTIO instance = null;
-
     private BluetoothAdapter mBluetoothAdapter;
     private BluetoothSocket mmSocket;
     private BluetoothDevice mmDevice;
     private OutputStream mmOutputStream;
     private InputStream mmInputStream;
     private static final UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805f9b34fb"); //Standard //SerialPortService ID
-    private int direction = 0;
-    private int speed = 0;
-
-    protected BTIO(){} //only for instance
-
-    public static BTIO getInstance()
-    {
-        if(instance == null)
-        {
-            instance = new BTIO();
-        }
-        return instance;
-    }
+//    private String direction;
+//    private int speed = 0;
 
     public boolean findBT()
     {
@@ -81,41 +68,47 @@ public class BTIO extends Activity {
         mmInputStream = mmSocket.getInputStream();
     }
 
-    public boolean sendOutput()
+    public boolean sendOutput(String direction, int speed)
     {
 //      need to use the output stream and try to send string streams to arduino
         try {
-            mmOutputStream.write(new Byte(":"+direction+"$"+speed+":"));
+            mmOutputStream.write(new Byte(":"+direction+":"+speed+"@"));
         } catch (IOException e) {
             e.printStackTrace();
         }
         return false;
     }
 
-    public void setSpeed (int speed)
-    //  some basic guess of how to use the output stream format
+    public boolean sendOutput(String direction)
     {
-        this.speed = speed;
-        sendOutput();
+//      need to use the output stream and try to send string streams to arduino
+        try {
+            mmOutputStream.write(new Byte(":"+direction+"@"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
-    public int getSpeed()
+    public boolean goForwardAt (int speed)
     {
-        return this.speed;
+        return this.sendOutput("forward", speed);
     }
 
-    public void setDirection(int direction)
+    public boolean goBackwardAt (int speed)
     {
-        this.direction = direction;
-        sendOutput();
+        return this.sendOutput("backward", speed);
     }
 
-
-    public void turnRight() {
-        this.setDirection(3);
+    public boolean turnRight() {
+        return this.sendOutput("right");
     }
 
-    public void turnLeft() {
-        this.setDirection(4);
+    public boolean turnLeft() {
+        return this.sendOutput("left");
+    }
+
+    public boolean stop(){
+        return this.sendOutput("release");
     }
 }

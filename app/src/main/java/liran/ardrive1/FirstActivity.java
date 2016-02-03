@@ -13,6 +13,8 @@ public class FirstActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);
 
+        final BTIO btio = new BTIO();
+
         final Button btnCon = (Button) findViewById(R.id.btnConnect);
         final Button btnEnt = (Button)findViewById(R.id.btnEnter);
 
@@ -22,26 +24,26 @@ public class FirstActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(btnCon.getText().toString().equals("connect")) {
                     try {
-                        BTIO.getInstance().findBT();
-                        BTIO.getInstance().openBT();
+                        btio.findBT();
+                        btio.openBT();
                     } catch (Exception ex) {
                         Log.e("Ardrive1", "exception", ex);
                     }
                     btnCon.setText("enter");
                 }
-                if(btnCon.getText().toString().equals("enter"))
-                {
-                    Intent intent = new Intent(FirstActivity.this, MainActivity.class);
-                    startActivity(intent);
-                }
+//                if(btnCon.getText().toString().equals("enter"))
+//                {
+//                    Intent intent = new Intent(FirstActivity.this, MainActivity.class);
+//                    startActivity(intent);
+//                }
             }
         });
 
         btnEnt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(btnEnt.isClickable()) {
-                }
+                Intent intent = new Intent(FirstActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
     }

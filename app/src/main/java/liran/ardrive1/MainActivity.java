@@ -1,5 +1,6 @@
 package liran.ardrive1;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -8,8 +9,15 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+
+    BTIO btio = new BTIO();
+    Context context = getApplicationContext();
+    int duration = Toast.LENGTH_SHORT;
+    Toast toast = Toast.makeText(context, "Failed to update", duration);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,7 +28,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                BTIO.getInstance().turnRight();
+                if(!btio.turnRight()){
+                    toast.show();
+                }
             }
         });
 
@@ -29,7 +39,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                BTIO.getInstance().turnLeft();
+                if(!btio.turnLeft()){
+                    toast.show();
+                }
             }
         });
 
@@ -45,16 +57,24 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
             // I assume that the speed is fully controlled by the app,
-            // and so i present on the local variable "speed" of BTIO instance
-//                speedText.setText("" + BTIO.getInstance().getSpeed());
-//                BTIO.getInstance().setSpeed(progress + 150);
-                if (progress > 45)
-                {
-                    BTIO.getInstance().setDirection("forward");
-                    BTIO.getInstance().setSpeed(progress-45);
+            // and so I present on the local variable "speed" of BTIO instance
+//                speedText.setText("" + btio.getSpeed());
+//                btio.setSpeed(progress + 150);
+                if (progress > 45) {
+                    if(!btio.goForwardAt(progress - 45)){
+                        toast.show();
+                    }
                 }
-                else if (progress < 45)
-
+                else if (progress < 45) {
+                    if(!btio.goBackwardAt(45 - progress)){
+                        toast.show();
+                    }
+                }
+                else {
+                    if(!btio.stop()){
+                        toast.show();
+                    }
+                }
             }
 
             @Override
