@@ -1,19 +1,25 @@
 package liran.ardrive1;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
 public class FirstActivity extends AppCompatActivity {
+
+    BTIO btio = new BTIO();
+    Context context = getApplicationContext();
+    int duration = Toast.LENGTH_SHORT;
+    Toast toast = Toast.makeText(context, "Failed to connect", duration);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);
-
-        final BTIO btio = new BTIO();
 
         final Button btnCon = (Button) findViewById(R.id.btnConnect);
         final Button btnEnt = (Button)findViewById(R.id.btnEnter);
@@ -27,11 +33,12 @@ public class FirstActivity extends AppCompatActivity {
                         btio.findBT();
                         btio.openBT();
                     } catch (Exception ex) {
-                        Log.e("Ardrive1", "exception", ex);
+                        toast.show();
+                        //Log.e("Ardrive1", "exception", ex);
                     }
                     btnCon.setText("enter");
                 }
-//                if(btnCon.getText().toString().equals("enter"))
+//              else if(btnCon.getText().toString().equals("enter"))
 //                {
 //                    Intent intent = new Intent(FirstActivity.this, MainActivity.class);
 //                    startActivity(intent);

@@ -64,16 +64,22 @@ public class MainActivity extends AppCompatActivity {
                     if(!btio.goForwardAt(progress - 45)){
                         toast.show();
                     }
+                    speedText.setText("D "+ (progress - 45));
+                    speedText.setTextColor(Color.GREEN);
                 }
                 else if (progress < 45) {
                     if(!btio.goBackwardAt(45 - progress)){
                         toast.show();
                     }
+                    speedText.setText("R "+ (45- progress));
+                    speedText.setTextColor(Color.RED);
                 }
                 else {
                     if(!btio.stop()){
                         toast.show();
                     }
+                    speedText.setText("N");
+                    speedText.setTextColor(Color.YELLOW);
                 }
             }
 
