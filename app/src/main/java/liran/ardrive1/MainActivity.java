@@ -37,14 +37,24 @@ public class MainActivity extends AppCompatActivity {
 
         final SeekBar carSpeed = (SeekBar) findViewById(R.id.seekBar);
 
+        carSpeed.setMax(300);
+        carSpeed.setProgress(45);
+
         carSpeed.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
          //the seek bar updating the BTIO
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
             // I assume that the speed is fully controlled by the app,
             // and so i present on the local variable "speed" of BTIO instance
-                speedText.setText("" + BTIO.getInstance().getSpeed());
-                BTIO.getInstance().setSpeed(progress + 150);
+//                speedText.setText("" + BTIO.getInstance().getSpeed());
+//                BTIO.getInstance().setSpeed(progress + 150);
+                if (progress > 45)
+                {
+                    BTIO.getInstance().setDirection("forward");
+                    BTIO.getInstance().setSpeed(progress-45);
+                }
+                else if (progress < 45)
+
             }
 
             @Override
