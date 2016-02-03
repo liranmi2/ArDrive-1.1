@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                BTIO.getInstance().setDirection(3);
+                BTIO.getInstance().turnRight();
             }
         });
 
@@ -28,7 +28,8 @@ public class MainActivity extends AppCompatActivity {
         leftArr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BTIO.getInstance().setDirection(4);
+
+                BTIO.getInstance().turnLeft();
             }
         });
 
@@ -40,19 +41,16 @@ public class MainActivity extends AppCompatActivity {
          //the seek bar updating the BTIO
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                speedText.setText("" + progress);
+            // I assume that the speed is fully controlled by the app,
+            // and so i present on the local variable "speed" of BTIO instance
+                speedText.setText("" + BTIO.getInstance().getSpeed());
                 BTIO.getInstance().setSpeed(progress + 150);
             }
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
+            public void onStartTrackingTouch(SeekBar seekBar) {}
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
+            public void onStopTrackingTouch(SeekBar seekBar) {}
         }
         );
 

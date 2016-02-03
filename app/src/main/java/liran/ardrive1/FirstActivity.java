@@ -20,12 +20,19 @@ public class FirstActivity extends AppCompatActivity {
         btnCon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    BTIO.getInstance().findBT();
-                    BTIO.getInstance().openBT();
+                if(btnCon.getText().toString().equals("connect")) {
+                    try {
+                        BTIO.getInstance().findBT();
+                        BTIO.getInstance().openBT();
+                    } catch (Exception ex) {
+                        Log.e("Ardrive1", "exception", ex);
+                    }
+                    btnCon.setText("enter");
                 }
-                catch (Exception ex) {
-                    Log.e("Ardrive1","exception",ex);
+                if(btnCon.getText().toString().equals("enter"))
+                {
+                    Intent intent = new Intent(FirstActivity.this, MainActivity.class);
+                    startActivity(intent);
                 }
             }
         });
@@ -34,8 +41,6 @@ public class FirstActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(btnEnt.isClickable()) {
-                    Intent intent = new Intent(FirstActivity.this, MainActivity.class);
-                    startActivity(intent);
                 }
             }
         });

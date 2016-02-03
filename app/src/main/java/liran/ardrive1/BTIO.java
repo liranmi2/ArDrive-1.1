@@ -25,6 +25,10 @@ public class BTIO extends Activity {
 //    //int counter;
 //    volatile boolean stopWorker;
 
+    // Liran:
+    // I created this class in order for it to work with one instance,
+    // so I will be able to connect in the first screen, and make changes in the second screen
+
     private static BTIO instance = null;
 
     private BluetoothAdapter mBluetoothAdapter;
@@ -95,6 +99,11 @@ public class BTIO extends Activity {
         sendOutput();
     }
 
+    public int getSpeed()
+    {
+        return this.speed;
+    }
+
     public void setDirection(int direction)
     {
         this.direction = direction;
@@ -102,4 +111,11 @@ public class BTIO extends Activity {
     }
 
 
+    public void turnRight() {
+        this.setDirection(3);
+    }
+
+    public void turnLeft() {
+        this.setDirection(4);
+    }
 }
