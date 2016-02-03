@@ -73,10 +73,11 @@ public class BTIO extends Activity {
 //      need to use the output stream and try to send string streams to arduino
         try {
             mmOutputStream.write(new Byte(":"+direction+":"+speed+"@"));
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
-        return false;
+        return true;
     }
 
     public boolean sendOutput(String direction)
@@ -84,10 +85,11 @@ public class BTIO extends Activity {
 //      need to use the output stream and try to send string streams to arduino
         try {
             mmOutputStream.write(new Byte(":"+direction+"@"));
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
-        return false;
+        return true;
     }
 
     public boolean goForwardAt (int speed)

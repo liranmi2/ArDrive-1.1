@@ -12,15 +12,15 @@ import android.widget.Toast;
 public class FirstActivity extends AppCompatActivity {
 
     BTIO btio = new BTIO();
-    Context context = getApplicationContext();
-    int duration = Toast.LENGTH_SHORT;
-    Toast toast = Toast.makeText(context, "Failed to connect", duration);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);
 
+        Context context = getApplicationContext();
+        int duration = Toast.LENGTH_SHORT;
+        final Toast toast = Toast.makeText(context, "Failed to connect", duration);
         final Button btnCon = (Button) findViewById(R.id.btnConnect);
         final Button btnEnt = (Button)findViewById(R.id.btnEnter);
 

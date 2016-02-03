@@ -14,14 +14,16 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     BTIO btio = new BTIO();
-    Context context = getApplicationContext();
-    int duration = Toast.LENGTH_SHORT;
-    Toast toast = Toast.makeText(context, "Failed to update", duration);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Context context = getApplicationContext();
+        int duration = Toast.LENGTH_SHORT;
+        final Toast toast = Toast.makeText(context, "Failed to update", duration);
+
 
         final ImageButton rightArr = (ImageButton) findViewById(R.id.rightArrow);
         rightArr.setOnClickListener(new View.OnClickListener() {
@@ -49,8 +51,8 @@ public class MainActivity extends AppCompatActivity {
 
         final SeekBar carSpeed = (SeekBar) findViewById(R.id.seekBar);
 
-        carSpeed.setMax(300);
-        carSpeed.setProgress(45);
+        carSpeed.setMax(400);
+        carSpeed.setProgress(145);
 
         carSpeed.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
          //the seek bar updating the BTIO
