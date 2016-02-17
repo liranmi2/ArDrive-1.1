@@ -37,7 +37,7 @@ public class BTIO extends Activity {
     private OutputStream mmOutputStream;
     private InputStream mmInputStream;
     private static final UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805f9b34fb"); //Standard //SerialPortService ID
-    private int direction = 0;
+    private String direction = "release";
     private int speed = 0;
 
     protected BTIO(){} //only for instance
@@ -65,7 +65,7 @@ public class BTIO extends Activity {
         Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
         if(pairedDevices.size() > 0) {
             for(BluetoothDevice device : pairedDevices)
-                if (device.getName().equals("LIRANVOSTRO")) {
+                if (device.getName().equals("HC-05")) {
                     mmDevice = device;
                     return true;
                 }
@@ -81,41 +81,52 @@ public class BTIO extends Activity {
         mmInputStream = mmSocket.getInputStream();
     }
 
-    public boolean sendOutput()
+    public boolean sendAndReceive(String command)
     {
 //      need to use the output stream and try to send string streams to arduino
         try {
-            mmOutputStream.write(new Byte(":"+direction+"$"+speed+":"));
+            byte[] write_cmd = command.getBytes();
+            mmOutputStream.write(write_cmd);
+            Thread.sleep(100);
+            byte[] readBuffer = new byte[255];
+            int bytes = mmInputStream.read(readBuffer);
+            String response = new String(readBuffer, 0, bytes);
+            return (response.equals("OK"));
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
         return false;
     }
 
-    public void setSpeed (int speed)
-    //  some basic guess of how to use the output stream format
+    public boolean driveForward(int speed)
     {
+        this.direction = "forward";
         this.speed = speed;
-        sendOutput();
+        return this.sendAndReceive(":forward:" + speed + ":@");
     }
 
-    public int getSpeed()
+    public boolean driveBackward(int speed)
     {
-        return this.speed;
+        this.direction = "backward";
+        this.speed = speed;
+        return this.sendAndReceive(this.direction + speed + ":@");
     }
 
-    public void setDirection(int direction)
+    public boolean release()
     {
-        this.direction = direction;
-        sendOutput();
+        this.direction = "release";
+        return this.sendAndReceive(this.direction + ":@");
     }
 
-
-    public void turnRight() {
-        this.setDirection(3);
+    public boolean TurnLeft()
+    {
+        return this.sendAndReceive(":left:@");
     }
 
-    public void turnLeft() {
-        this.setDirection(4);
+    public boolean TurnRight()
+    {
+        return this.sendAndReceive(":right:@");
     }
 }
