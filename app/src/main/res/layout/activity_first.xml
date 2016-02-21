@@ -12,9 +12,8 @@
         android:background="#ff4e4e4e"
         android:textColor="#ffffff"
         android:textSize="15sp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="89dp" />
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -26,7 +25,7 @@
         android:textSize="15sp"
         android:textColor="#ffffff"
         android:background="#ff4e4e4e"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_below="@+id/btnConnect"
         android:layout_alignLeft="@+id/btnConnect"
         android:layout_alignStart="@+id/btnConnect" />

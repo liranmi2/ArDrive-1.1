@@ -46,13 +46,13 @@ public class FirstActivity extends AppCompatActivity {
             }
         });
 
-        btnEnt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(FirstActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
+//        btnEnt.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(FirstActivity.this, MainActivity.class);
+//                startActivity(intent);
+//            }
+//        });
     }
 
 }
