@@ -25,12 +25,6 @@ public class BTIO extends Activity {
 //    //int counter;
 //    volatile boolean stopWorker;
 
-    // Liran:
-    // I created this class in order for it to work with one instance,
-    // so I will be able to connect in the first screen, and make changes in the second screen
-
-    private static BTIO instance = null;
-
     private BluetoothAdapter mBluetoothAdapter;
     private BluetoothSocket mmSocket;
     private BluetoothDevice mmDevice;
@@ -40,23 +34,9 @@ public class BTIO extends Activity {
     private String direction = "release";
     private int speed = 0;
 
-    protected BTIO(){} //only for instance
-
-    public static BTIO getInstance()
-    {
-        if(instance == null)
-        {
-            instance = new BTIO();
-        }
-        return instance;
-    }
-
     public boolean findBT()
     {
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-//        if(mBluetoothAdapter == null) {
-//            // myLabel.setText("No bluetooth adapter available");
-//        }
         if (!mBluetoothAdapter.isEnabled()) {
             Intent enableBluetooth = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBluetooth, 0);
@@ -92,9 +72,7 @@ public class BTIO extends Activity {
             int bytes = mmInputStream.read(readBuffer);
             String response = new String(readBuffer, 0, bytes);
             return (response.equals("OK"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
         return false;
@@ -120,12 +98,12 @@ public class BTIO extends Activity {
         return this.sendAndReceive(this.direction + ":@");
     }
 
-    public boolean TurnLeft()
+    public boolean turnLeft()
     {
         return this.sendAndReceive(":left:@");
     }
 
-    public boolean TurnRight()
+    public boolean turnRight()
     {
         return this.sendAndReceive(":right:@");
     }

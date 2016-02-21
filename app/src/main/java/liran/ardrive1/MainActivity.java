@@ -63,21 +63,21 @@ public class MainActivity extends AppCompatActivity {
 //                speedText.setText("" + btio.getSpeed());
 //                btio.setSpeed(progress + 150);
                 if (progress > 45) {
-                    if(!btio.goForwardAt(progress - 45)){
+                    if(!btio.driveForward(progress - 45)){
                         toast.show();
                     }
                     speedText.setText("D "+ (progress - 45));
                     speedText.setTextColor(Color.GREEN);
                 }
                 else if (progress < 45) {
-                    if(!btio.goBackwardAt(45 - progress)){
+                    if(!btio.driveBackward(45 - progress)){
                         toast.show();
                     }
                     speedText.setText("R "+ (45- progress));
                     speedText.setTextColor(Color.RED);
                 }
                 else {
-                    if(!btio.stop()){
+                    if(!btio.release()){
                         toast.show();
                     }
                     speedText.setText("N");

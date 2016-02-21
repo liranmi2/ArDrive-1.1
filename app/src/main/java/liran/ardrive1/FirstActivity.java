@@ -21,6 +21,7 @@ public class FirstActivity extends AppCompatActivity {
         Context context = getApplicationContext();
         int duration = Toast.LENGTH_SHORT;
         final Toast toast = Toast.makeText(context, "Failed to connect", duration);
+
         final Button btnCon = (Button) findViewById(R.id.btnConnect);
         final Button btnEnt = (Button)findViewById(R.id.btnEnter);
 
@@ -38,11 +39,10 @@ public class FirstActivity extends AppCompatActivity {
                     }
                     btnCon.setText("enter");
                 }
-//              else if(btnCon.getText().toString().equals("enter"))
-//                {
-//                    Intent intent = new Intent(FirstActivity.this, MainActivity.class);
-//                    startActivity(intent);
-//                }
+                else if(btnCon.getText().toString().equals("enter")) {
+                    Intent intent = new Intent(FirstActivity.this, MainActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -54,15 +54,5 @@ public class FirstActivity extends AppCompatActivity {
             }
         });
     }
-
-//    void findBT() {
-//
-//        //myLabel.setText("Bluetooth Device Found");
-//    }
-//
-//    void openBT() throws Exception {
-//        //beginListenForData();
-//        //myLabel.setText("Bluetooth Opened");
-//    }
 
 }
