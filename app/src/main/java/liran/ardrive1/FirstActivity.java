@@ -23,23 +23,26 @@ public class FirstActivity extends AppCompatActivity {
         final Toast toast = Toast.makeText(context, "Failed to connect", duration);
 
         final Button btnCon = (Button) findViewById(R.id.btnConnect);
-        final Button btnEnt = (Button)findViewById(R.id.btnEnter);
-
+       // final Button btnEnt = (Button)findViewById(R.id.btnEnter);
+        btnCon.setTag(1);
+        btnCon.setText("Connect");
 
         btnCon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(btnCon.getText().toString().equals("connect")) {
+                final int status = (Integer) v.getTag();
+                if(status == 1) {
                     try {
-                        btio.findBT();
-                        btio.openBT();
+//                        btio.findBT();
+//                        btio.openBT();
+                        btnCon.setText("Enter");
+                        v.setTag(0);
                     } catch (Exception ex) {
                         toast.show();
                         //Log.e("Ardrive1", "exception", ex);
                     }
-                    btnCon.setText("enter");
                 }
-                else if(btnCon.getText().toString().equals("enter")) {
+                else {
                     Intent intent = new Intent(FirstActivity.this, MainActivity.class);
                     startActivity(intent);
                 }

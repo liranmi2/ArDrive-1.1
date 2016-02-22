@@ -44,11 +44,12 @@ public class BTIO extends Activity {
 
         Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
         if(pairedDevices.size() > 0) {
-            for(BluetoothDevice device : pairedDevices)
+            for(BluetoothDevice device : pairedDevices) {
                 if (device.getName().equals("HC-05")) {
                     mmDevice = device;
                     return true;
                 }
+            }
         }
         return false;
     }
@@ -83,6 +84,11 @@ public class BTIO extends Activity {
         this.direction = "forward";
         this.speed = speed;
         return this.sendAndReceive(":forward:" + speed + ":@");
+    }
+
+    public boolean driveTo()
+    {
+        return this.sendAndReceive(":"+this.direction+":@");
     }
 
     public boolean driveBackward(int speed)
