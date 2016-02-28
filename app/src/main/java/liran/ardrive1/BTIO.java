@@ -5,9 +5,12 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
+import android.util.Log;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.util.Set;
 import java.util.UUID;
 
@@ -17,7 +20,7 @@ import java.util.UUID;
  * changed by Liran on 20/01/2016
  */
 
-public class BTIO extends Activity {
+public class BTIO {
 
 //    Thread workerThread;
 //    byte[] readBuffer;
@@ -34,22 +37,24 @@ public class BTIO extends Activity {
     private String direction = "release";
     private int speed = 0;
 
-    public boolean findBT()
+
+    public boolean findBT(Activity activity)
     {
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        Log.v("from findBT", "BT adapter status: " + mBluetoothAdapter.isEnabled());
         if (!mBluetoothAdapter.isEnabled()) {
             Intent enableBluetooth = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(enableBluetooth, 0);
+            Log.v("intent enable BT", "" + enableBluetooth);
+            activity.startActivityForResult(enableBluetooth, 1);
         }
 
         Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
         if(pairedDevices.size() > 0) {
-            for(BluetoothDevice device : pairedDevices) {
-                if (device.getName().equals("HC-05")) {
+            for(BluetoothDevice device : pairedDevices)
+                if (device.getName().equals("ArDrive")) {
                     mmDevice = device;
                     return true;
                 }
-            }
         }
         return false;
     }
@@ -62,7 +67,7 @@ public class BTIO extends Activity {
         mmInputStream = mmSocket.getInputStream();
     }
 
-    public boolean sendAndReceive(String command)
+    private boolean sendAndReceive(String command)
     {
 //      need to use the output stream and try to send string streams to arduino
         try {
@@ -70,9 +75,14 @@ public class BTIO extends Activity {
             mmOutputStream.write(write_cmd);
             Thread.sleep(100);
             byte[] readBuffer = new byte[255];
-            int bytes = mmInputStream.read(readBuffer);
-            String response = new String(readBuffer, 0, bytes);
-            return (response.equals("OK"));
+            if (mmInputStream.available() > 0)
+            {
+                int bytes = mmInputStream.read(readBuffer);
+                String response = new String(readBuffer, 0, bytes);
+                return (response.equals("OK"));
+            }
+            return false;
+
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }

@@ -1,6 +1,7 @@
 package liran.ardrive1;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -14,14 +15,15 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    BTIO btio = new BTIO();
     final int releasePoint = 145;
     final int max = 400;
+    private BTIO btio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        btio = FirstActivity.btio;
         final Context context = getApplicationContext();
         final int duration = Toast.LENGTH_SHORT;
         final Toast[] toast = {Toast.makeText(context, "Failed to update", duration)};
@@ -31,15 +33,14 @@ public class MainActivity extends AppCompatActivity {
         rightArr.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if(event.getAction() == MotionEvent.ACTION_DOWN){
-                    if(!btio.turnRight()){
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    if (!btio.turnRight()) {
                         toast[0].show();
                     }
 //                    toast[0] = Toast.makeText(context, "Right", duration);
 //                    toast[0].show();
-                }
-                else if(event.getAction() == MotionEvent.ACTION_UP){
-                    if(!btio.driveTo()){
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    if (!btio.driveTo()) {
                         toast[0].show();
                     }
 //                    toast[0] = Toast.makeText(context, "Forward", duration);

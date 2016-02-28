@@ -9,11 +9,11 @@
         android:id="@+id/rightArrow"
         android:background="#ff969696"
         android:src="@mipmap/right"
-        android:layout_marginTop="69dp"
+        android:layout_marginTop="71dp"
         android:contentDescription="@string/rightArrow"
         android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/seekBar"
-        android:layout_alignStart="@+id/seekBar" />
+        android:layout_alignRight="@+id/seekBar"
+        android:layout_alignEnd="@+id/seekBar" />
 
     <ImageButton
         android:layout_width="100dp"
@@ -23,9 +23,9 @@
         android:src="@mipmap/left"
         android:contentDescription="@string/leftArrow"
         android:layoutDirection="ltr"
-        android:layout_alignTop="@+id/rightArrow"
-        android:layout_alignRight="@+id/seekBar"
-        android:layout_alignEnd="@+id/seekBar" />
+        android:layout_above="@+id/seekBar"
+        android:layout_alignLeft="@+id/seekBar"
+        android:layout_alignStart="@+id/seekBar" />
 
     <SeekBar
         android:layout_width="300dp"
