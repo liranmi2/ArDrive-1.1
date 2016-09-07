@@ -34,7 +34,7 @@ public class BTIO {
     private OutputStream mmOutputStream;
     private InputStream mmInputStream;
     private static final UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805f9b34fb"); //Standard //SerialPortService ID
-    private String direction = "release";
+    private String direction = "s";
     private int speed = 0;
 
 
@@ -69,21 +69,43 @@ public class BTIO {
 
     private boolean sendAndReceive(String command)
     {
-//      need to use the output stream and try to send string streams to arduino
         try {
             byte[] write_cmd = command.getBytes();
-            mmOutputStream.write(write_cmd);
-            Thread.sleep(100);
-            byte[] readBuffer = new byte[255];
-            if (mmInputStream.available() > 0)
+            for (int i=0; i<10; i++)
             {
-                int bytes = mmInputStream.read(readBuffer);
-                String response = new String(readBuffer, 0, bytes);
-                return (response.equals("OK"));
+                mmOutputStream.write(write_cmd);
+
+                Log.v("write to BT: ", "" + command);
+//                try {
+//                    Thread.sleep(250);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+                Log.v("input stream bytes: ", "" + mmInputStream.available());
+                if (mmInputStream.available() > 0)
+                {
+
+                    byte[] readBuffer = new byte[255];
+                    mmInputStream.read(readBuffer);
+//
+                    String response = new String(readBuffer, 0, 0);
+                    Log.v("read buffer", "" + readBuffer);
+                    Log.v("response from BT: ", response);
+                    Log.v("command: ", command);
+                    if (command.contains(response))
+                    {
+                        Log.v("aaaaaaaaaaaaaaa", "in contatinss@@@@@");
+                        return true;
+                    }
+
+
+                }
+
             }
             return false;
 
-        } catch (IOException | InterruptedException e) {
+
+        } catch (IOException e){ // | InterruptedException e) {
             e.printStackTrace();
         }
         return false;
@@ -91,36 +113,36 @@ public class BTIO {
 
     public boolean driveForward(int speed)
     {
-        this.direction = "forward";
+        this.direction = "f";
         this.speed = speed;
-        return this.sendAndReceive(":forward:" + speed + ":@");
+        return this.sendAndReceive(":f:" + speed + ":@");
     }
 
     public boolean driveTo()
     {
-        return this.sendAndReceive(":"+this.direction+":@");
+        return this.sendAndReceive(":"+this.direction+":"+this.speed+":@");
     }
 
     public boolean driveBackward(int speed)
     {
-        this.direction = "backward";
+        this.direction = "b";
         this.speed = speed;
-        return this.sendAndReceive(this.direction + speed + ":@");
+        return this.sendAndReceive(":" + this.direction + ":" + speed + ":@");
     }
 
     public boolean release()
     {
-        this.direction = "release";
-        return this.sendAndReceive(this.direction + ":@");
+        this.direction = "s";
+        return this.sendAndReceive(":" + this.direction + ":@");
     }
 
     public boolean turnLeft()
     {
-        return this.sendAndReceive(":left:@");
+        return this.sendAndReceive(":l:@");
     }
 
     public boolean turnRight()
     {
-        return this.sendAndReceive(":right:@");
+        return this.sendAndReceive(":r:@");
     }
 }

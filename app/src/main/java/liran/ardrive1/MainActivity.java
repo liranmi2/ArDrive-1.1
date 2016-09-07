@@ -15,8 +15,8 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    final int releasePoint = 145;
-    final int max = 400;
+    final int releasePoint = 21;
+    final int max = 42;
     private BTIO btio;
 
     @Override
@@ -83,6 +83,8 @@ public class MainActivity extends AppCompatActivity {
 
         carSpeed.setMax(max);
         carSpeed.setProgress(releasePoint);
+        speedText.setText("N");
+        speedText.setTextColor(Color.YELLOW);
 
         carSpeed.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 //the seek bar updating the BTIO
@@ -92,18 +94,21 @@ public class MainActivity extends AppCompatActivity {
                     // and so I present on the local variable "speed" of BTIO instance
 //                speedText.setText("" + btio.getSpeed());
 //                btio.setSpeed(progress + 150);
+
                     if (progress > releasePoint) {
-                        if (!btio.driveForward(progress - releasePoint)) {
+                        if (!btio.driveForward((progress - releasePoint)* 5+ 150)) {
                             toast[0].show();
 
                         }
-                        speedText.setText("D " + (progress - releasePoint));
+
+                        speedText.setText("D " + (progress - releasePoint)*10);
                         speedText.setTextColor(Color.GREEN);
+
                     } else if (progress < releasePoint) {
-                        if (!btio.driveBackward(releasePoint - progress)) {
+                        if (!btio.driveBackward((releasePoint - progress)* 5+ 150)) {
                             toast[0].show();
                         }
-                        speedText.setText("R " + (releasePoint - progress));
+                        speedText.setText("R " + (releasePoint - progress)*10);
                         speedText.setTextColor(Color.RED);
                     } else {
                         if (!btio.release()) {
